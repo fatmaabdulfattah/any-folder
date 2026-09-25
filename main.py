@@ -2,13 +2,13 @@ from fastapi import FastAPI
 
 
 
-app = FastAPI
+app = FastAPI()
 
 
 
 @app.get("/health")
 
-def health()
+def health():
 
     data = {"status": "ok"}
 
@@ -18,7 +18,7 @@ def health()
 
 @app.get("/")
 
-def root()
+def root():
 
     return {"message": "Hello"}
 
