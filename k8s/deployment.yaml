@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: any-folder
+  labels:
+    app: any-folder
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: any-folder
+  template:
+    metadata:
+      labels:
+        app: any-folder
+    spec:
+      containers:
+        - name: any-folder
+          image: ${{ secrets.DOCKER_USERNAME }}/any-folder:latest
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
